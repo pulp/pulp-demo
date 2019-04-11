@@ -1,5 +1,9 @@
 ** Prereqs **
 
+Install from Fedora 30 (Beta/nightly at time of writing) Workstation ISO.
+
+The kickstart file for partitioning is attached.
+
 `systemctl enable --now sshd`
 
 `visudo`
