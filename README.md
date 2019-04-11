@@ -4,6 +4,8 @@ Install from Fedora 30 (Beta/nightly at time of writing) Workstation ISO.
 
 The kickstart file for partitioning is attached.
 
+*You have unpartitioned space on the Volume Group. Grow it for whichever filesystem may need it later.*
+
 `systemctl enable --now sshd`
 
 `visudo`
