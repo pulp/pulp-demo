@@ -85,11 +85,23 @@
       copy:
         src:   usr/local/share/applications/dashboard.desktop
         dest: /usr/local/share/applications/dashboard.desktop
-        owner: pulp
-        group: pulp
+        owner: root
+        group: root
         mode: 0644
       notify: update-desktop-database
 
+    - name: Make the dashboard a favorite app along with the terminal
+      copy:
+        src:   etc/dconf/db/local.d/00-favorite-apps
+        dest: /etc/dconf/db/local.d/00-favorite-apps
+        owner: root
+        group: root
+        mode: 0644
+      notify: generate system dconf database
+
   handlers:
-    - name: update-desktop-datbase
-      command: update-desktop-datbase
+    - name: update-desktop-database
+      command: update-desktop-database
+
+    - name: generate system dconf database
+      command: dconf update
