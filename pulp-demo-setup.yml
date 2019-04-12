@@ -66,3 +66,17 @@
     - name: Configure minikube to use kvm2 for user
       command: minikube config set vm-driver kvm2
       become: false
+
+    - name: Check if minikube has already been setup and is working fine
+      command: minikube status
+      become: false
+      register: kubestatus
+      failed_when: false
+      changed_when: false
+
+    - name: Start minikube
+      command: minikube start
+      become: false
+      register: startout
+      when: kubestatus.rc != 0
+      changed_when: "'Done! Thank you for using minikube!' in startout.stdout"

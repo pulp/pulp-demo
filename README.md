@@ -28,8 +28,5 @@ Apply the playbook:
 
 `ansible-playbook pulp-demo-setup.yml -i 192.168.1.91,`
 
-Now start it:
-
-`minikube start`
-
-You should see `🏄  Done! Thank you for using minikube!`
+You can now run minikube subcommands (beyond `start`):
+`minikube --help`
