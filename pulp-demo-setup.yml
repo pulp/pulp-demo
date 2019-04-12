@@ -19,6 +19,13 @@
         - reboot
         - updates.changed
 
+    # kubernetes.repo copied from here:
+    # https://kubernetes.io/docs/tasks/tools/install-kubectl/#install-kubectl-binary-using-native-package-management
+    - name: Add repo for kubectl
+      copy:
+        src:   etc/yum.repos.d/kubernetes.repo
+        dest: /etc/yum.repos.d/kubernetes.repo
+
     - name: Install Packages
       dnf:
         name: "{{ item }}"
@@ -27,6 +34,7 @@
         # https://github.com/kubernetes/minikube/blob/master/docs/drivers.md#kvm2-driver
         - libvirt-daemon-kvm
         - qemu-kvm
+        - kubectl
         # Let's be able to interact with the VMs easily:
         - virt-manager
         # Let's make our lives easier
