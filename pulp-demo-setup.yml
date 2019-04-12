@@ -1,0 +1,64 @@
+---
+- hosts: all
+  user: pulp
+  become: true
+  vars:
+    - reboot: false
+    - ansible_python_interpreter: /usr/bin/python3
+  tasks:
+    - name: Update all packages
+      dnf:
+        name: "*"
+        state: latest
+        update_only: true
+      register: updates
+
+    - name: reboot for updates
+      reboot:
+      when:
+        - reboot
+        - updates.changed
+
+    - name: Install Packages
+      dnf:
+        name: "{{ item }}"
+      with_items:
+        # minikube-prescribed
+        # https://github.com/kubernetes/minikube/blob/master/docs/drivers.md#kvm2-driver
+        - libvirt-daemon-kvm
+        - qemu-kvm
+        # Let's be able to interact with the VMs easily:
+        - virt-manager
+        # Let's make our lives easier
+        - vim-enhanced
+
+    # https://github.com/kubernetes/minikube/blob/master/docs/drivers.md#kvm2-driver
+    - name: Give the user permission to use virt-manager
+      user:
+        name: pulp
+        groups: libvirt
+        append: true
+
+    - name: Download minikube
+      get_url:
+        url: https://storage.googleapis.com/minikube/releases/latest/minikube-linux-amd64
+        dest: /usr/local/bin/minikube
+        owner: root
+        group: root
+        mode: 0755
+
+    - name: Download minikube kvm2 driver
+      get_url:
+        url: https://storage.googleapis.com/minikube/releases/latest/docker-machine-driver-kvm2
+        dest: /usr/local/bin/docker-machine-driver-kvm2
+        owner: root
+        group: root
+        mode: 0755
+
+    - name: Configure minikube to use kvm2 for root
+      command: minikube config set vm-driver kvm2
+      become: true
+
+    - name: Configure minikube to use kvm2 for user
+      command: minikube config set vm-driver kvm2
+      become: false
