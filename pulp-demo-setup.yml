@@ -83,8 +83,13 @@
 
     - name: Install dashboard .desktop file
       copy:
-        src:   home/pulp/Desktop/dashboard.desktop
-        dest: /home/pulp/Desktop/dashboard.desktop
+        src:   usr/local/share/applications/dashboard.desktop
+        dest: /usr/local/share/applications/dashboard.desktop
         owner: pulp
         group: pulp
         mode: 0644
+      notify: update-desktop-database
+
+  handlers:
+    - name: update-desktop-datbase
+      command: update-desktop-datbase
