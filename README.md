@@ -6,7 +6,7 @@ Install from Fedora 30 (Beta/nightly at time of writing) Workstation ISO.
 
 The kickstart file for partitioning is attached `anaconda-ks.cfg`
 
-**You have unallocated space on the Volume Group. Grow it for whichever filesystem may need it later.**
+**You have unallocated space on the Volume Group. Grow whichever filesystem may need it later.**
 
 
 ## Make the machine manageable by Ansible
@@ -27,7 +27,7 @@ Determine your IP address
 
 `ip addr show`
 
-(assuming 192.168.1.91 for the rest of this.)
+**(assuming 192.168.1.91 for the rest of these instructions.)**
 
 Adapt this command for your SSH pubkey and for the IP address of the system.
 
@@ -36,6 +36,10 @@ Adapt this command for your SSH pubkey and for the IP address of the system.
 # Setup
 
 Apply the Ansible playbook:
+
+`ansible-playbook pulp-demo-setup.yml -i 192.168.1.91, -e reboot=true`
+
+In the future for any updates, just run:
 
 `ansible-playbook pulp-demo-setup.yml -i 192.168.1.91,`
 
