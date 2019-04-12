@@ -80,3 +80,11 @@
       register: startout
       when: kubestatus.rc != 0
       changed_when: "'Done! Thank you for using minikube!' in startout.stdout"
+
+    - name: Install dashboard .desktop file
+      copy:
+        src:   home/pulp/Desktop/dashboard.desktop
+        dest: /home/pulp/Desktop/dashboard.desktop
+        owner: pulp
+        group: pulp
+        mode: 0644
