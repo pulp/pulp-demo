@@ -63,10 +63,6 @@
         group: root
         mode: 0755
 
-    - name: Configure minikube to use kvm2 for root
-      command: minikube config set vm-driver kvm2
-      become: true
-
     - name: Configure minikube to use kvm2 for user
       command: minikube config set vm-driver kvm2
       become: false
