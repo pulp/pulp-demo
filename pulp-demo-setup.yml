@@ -37,6 +37,7 @@
         - kubectl
         # Let's be able to interact with the VMs easily:
         - virt-manager
+        - libvirt-client
         # Let's make our lives easier
         - vim-enhanced
 
