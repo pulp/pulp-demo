@@ -4,7 +4,9 @@
 
 Install from Fedora 30 (Beta/nightly at time of writing) Workstation ISO.
 
-The kickstart file for partitioning is attached `anaconda-ks.cfg`
+The kickstart file for partitioning is attached `anaconda-ks.cfg`. It assumes EFI mode (which the Intel NUC8i7BEH defaults to, and I recommend.)
+
+It is also recommended to disable EFI secure boot in case we ever need to recover the system via an non-signed media. This is the only firmware/BIOS setting changed on the Intel NUC8i7BEH.
 
 **You have unallocated space on the Volume Group. Grow whichever filesystem may need it later.**
 
