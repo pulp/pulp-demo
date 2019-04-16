@@ -82,6 +82,17 @@
       when: kubestatus.rc != 0
       changed_when: "'Done! Thank you for using minikube!' in startout.stdout"
 
+    - name: Install a service so minikube starts at boot
+      copy:
+        src:   etc/systemd/system/minikube.service
+        dest: /etc/systemd/system/minikube.service
+
+    - name: Enable minikube service
+      systemd:
+        name: minikube
+        enabled: true
+        daemon_reload: true
+
     - name: Install dashboard .desktop file
       copy:
         src:   usr/local/share/applications/dashboard.desktop

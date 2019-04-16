@@ -1,0 +1,14 @@
+[Unit]
+Description=Start Minikube
+Requires=libvirtd.service
+After=libvirtd.service
+
+[Service]
+Type=oneshot
+# No ExecStop because that seems to delete the VM
+ExecStart=/usr/local/bin/minikube start
+RemainAfterExit=true
+User=pulp
+
+[Install]
+WantedBy=multi-user.target
