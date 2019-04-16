@@ -1,2 +1,2 @@
 [org/gnome/shell]
-favorite-apps = ['dashboard.desktop', 'gnome-terminal.desktop']
+favorite-apps=['org.gnome.Terminal.desktop', 'dashboard.desktop']
