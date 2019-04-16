@@ -102,14 +102,19 @@
         mode: 0644
       notify: update-desktop-database
 
-    - name: Make the dashboard a favorite app along with the terminal
+    - name: Configure gnome-desktop
       copy:
-        src:   etc/dconf/db/local.d/00-favorite-apps
-        dest: /etc/dconf/db/local.d/00-favorite-apps
+        src:   "etc/dconf/db/local.d/{{ item }}"
+        dest: "/etc/dconf/db/local.d/{{ item }}"
         owner: root
         group: root
         mode: 0644
       notify: generate system dconf database
+      # Make the dashboard a favorite app along with the terminal
+      with_items:
+        - 00-favorite-apps
+      # Disable the screensaver, and therefore automatic screen lock
+        - 00-disable-screensaver
 
   handlers:
     - name: update-desktop-database
