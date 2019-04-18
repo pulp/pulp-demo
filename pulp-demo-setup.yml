@@ -80,7 +80,7 @@
       changed_when: false
 
     - name: Start minikube
-      command: minikube start
+      command: minikube start --mount
       become: false
       register: startout
       when: kubestatus.rc != 0

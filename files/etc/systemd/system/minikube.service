@@ -6,7 +6,7 @@ After=libvirtd.service
 [Service]
 Type=oneshot
 # No ExecStop because that seems to delete the VM
-ExecStart=/usr/local/bin/minikube start
+ExecStart=/usr/local/bin/minikube start --mount
 RemainAfterExit=true
 User=pulp
 
