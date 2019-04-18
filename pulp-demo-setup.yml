@@ -100,6 +100,11 @@
       command: minikube config set vm-driver kvm2
       become: false
 
+    # This cannot be changed after the VM is created
+    - name: Configure minikube to expand the disk at creation to 50G
+      command: minikube config set disk-size 50g
+      become: false
+
     - name: Check if minikube has already been setup and is working fine
       command: minikube status
       become: false
