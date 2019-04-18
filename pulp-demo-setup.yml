@@ -137,10 +137,10 @@
         group: root
         mode: 0644
       notify: generate system dconf database
-      # Make the dashboard a favorite app along with the terminal
       with_items:
+        # Make the dashboard a favorite app along with the terminal
         - 00-favorite-apps
-      # Disable the screensaver, and therefore automatic screen lock
+        # Disable the screensaver, and therefore automatic screen lock
         - 00-disable-screensaver
 
   handlers:
