@@ -65,6 +65,9 @@
         mode: 0644
       notify: update-desktop-database
 
+    - name: Make dashboard.desktop be recognized ASAP hopefully
+      meta: flush_handlers
+
     - name: Download minikube kvm2 driver
       get_url:
         url: https://storage.googleapis.com/minikube/releases/latest/docker-machine-driver-kvm2
