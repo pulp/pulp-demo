@@ -56,6 +56,15 @@
         group: root
         mode: 0755
 
+    - name: Install dashboard .desktop file
+      copy:
+        src:   usr/local/share/applications/dashboard.desktop
+        dest: /usr/local/share/applications/dashboard.desktop
+        owner: root
+        group: root
+        mode: 0644
+      notify: update-desktop-database
+
     - name: Download minikube kvm2 driver
       get_url:
         url: https://storage.googleapis.com/minikube/releases/latest/docker-machine-driver-kvm2
@@ -96,15 +105,6 @@
         name: minikube
         enabled: true
         daemon_reload: true
-
-    - name: Install dashboard .desktop file
-      copy:
-        src:   usr/local/share/applications/dashboard.desktop
-        dest: /usr/local/share/applications/dashboard.desktop
-        owner: root
-        group: root
-        mode: 0644
-      notify: update-desktop-database
 
     - name: Configure gnome-desktop
       copy:
