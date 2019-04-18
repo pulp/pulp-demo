@@ -41,6 +41,16 @@
         # Let's make our lives easier
         - vim-enhanced
 
+    - name: Generate kubectl bash completion file under /tmp
+      shell: kubectl completion bash > /tmp/kubectl.sh
+      changed_when: false
+
+    - name: Install kubectl bash completion file
+      copy:
+        src:            /tmp/kubectl.sh
+        dest: /etc/profile.d/kubectl.sh
+        remote_src: true
+
     # https://github.com/kubernetes/minikube/blob/master/docs/drivers.md#kvm2-driver
     - name: Give the user permission to use virt-manager
       user:
@@ -67,6 +77,16 @@
 
     - name: Make dashboard.desktop be recognized ASAP hopefully
       meta: flush_handlers
+
+    - name: Generate minikube bash completion file under /tmp
+      shell: minikube completion bash > /tmp/minikube.sh
+      changed_when: false
+
+    - name: Install minikube bash completion file
+      copy:
+        src:            /tmp/minikube.sh
+        dest: /etc/profile.d/minikube.sh
+        remote_src: true
 
     - name: Download minikube kvm2 driver
       get_url:
