@@ -5,8 +5,11 @@ After=libvirtd.service
 
 [Service]
 Type=oneshot
-# No ExecStop because that seems to delete the VM
 ExecStart=/usr/local/bin/minikube start --mount
+# This will blow away the VM config file, but not the VM hard disk under ~
+# Since we are mounting, it is probably a good idea to run this stop command
+# rather than letting libvirt stop the VM.
+ExecStop=/usr/local/bin/minikube stop
 RemainAfterExit=true
 User=pulp
 
