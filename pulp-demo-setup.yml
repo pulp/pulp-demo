@@ -100,10 +100,6 @@
       command: minikube config set vm-driver kvm2
       become: false
 
-    - name: Configure minikube to give the VM 26GB of RAM
-      command: minikube config set memory 26624
-      become: false
-
     - name: Check if minikube has already been setup and is working fine
       command: minikube status
       become: false
@@ -112,7 +108,8 @@
       changed_when: false
 
     - name: Start minikube
-      command: minikube start --mount
+      # Keep these options in sync with the values in /files/etc/systemd/system/minikube.service
+      command: minikube start --mount --memory 26624
       become: false
       register: startout
       when: kubestatus.rc != 0
