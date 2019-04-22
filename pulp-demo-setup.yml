@@ -102,7 +102,10 @@
 
     # This cannot be changed after the VM is created
     # It is not pre-allocated though.
-    - name: Configure minikube to expand the disk at creation to 550G
+    #
+    # Even though the VM sees it as 512.2G, the filesystem is still only 448G.
+    # This should be good enough for demo purposes.
+    - name: Configure minikube to expand the disk at creation to 550g
       command: minikube config set disk-size 550g
       become: false
 
