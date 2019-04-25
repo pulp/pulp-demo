@@ -40,6 +40,8 @@
         - libvirt-client
         # Let's make our lives easier
         - vim-enhanced
+        # enable the k8s module to work
+        - python3-openshift
 
     - name: Generate kubectl bash completion file under /tmp
       shell: kubectl completion bash > /tmp/kubectl.sh
@@ -134,6 +136,24 @@
         name: minikube
         enabled: true
         daemon_reload: true
+
+    # 400Gi because the VM is incapable of expanding the filesystem beyond 448Gi
+    - name: Create the PersistentVolume
+      k8s:
+        state: present
+        definition:
+          apiVersion: v1
+          kind: PersistentVolume
+          metadata:
+            name: pv0001
+          spec:
+            accessModes:
+              - ReadWriteOnce
+            capacity:
+              storage: 400Gi
+            hostPath:
+              path: /data/pv0001/
+      become: false
 
     - name: Configure gnome-desktop
       copy:
