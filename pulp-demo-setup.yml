@@ -40,6 +40,8 @@
         - libvirt-client
         # Let's make our lives easier
         - vim-enhanced
+        # Preferred web client for pulp3
+        - httpie
 
     - name: Generate kubectl bash completion file under /tmp
       shell: kubectl completion bash > /tmp/kubectl.sh
