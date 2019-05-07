@@ -42,6 +42,8 @@
         - vim-enhanced
         # Preferred web client for pulp3
         - httpie
+        # JSON parger. Used often in client commands like in pulp_file README.md.
+        - jq
 
     - name: Generate kubectl bash completion file under /tmp
       shell: kubectl completion bash > /tmp/kubectl.sh
