@@ -44,6 +44,8 @@
         - httpie
         # JSON parger. Used often in client commands like in pulp_file README.md.
         - jq
+        # The pulp-operator depends on Ansible, including this
+        - python3-ansible-runner
 
     - name: Generate kubectl bash completion file under /tmp
       shell: kubectl completion bash > /tmp/kubectl.sh
