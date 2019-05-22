@@ -141,6 +141,13 @@
         enabled: true
         daemon_reload: true
 
+    # for default user & pass for httpie
+    - name: Install .netrc file
+      copy:
+        src:   home/pulp/.netrc
+        dest: /home/pulp/.netrc
+      become: false
+
     - name: Configure gnome-desktop
       copy:
         src:   "etc/dconf/db/local.d/{{ item }}"
