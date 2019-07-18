@@ -6,7 +6,7 @@ After=libvirtd.service
 [Service]
 Type=oneshot
 # Keep these values in sync with those in pulp-demo-setup-yml
-ExecStart=/usr/local/bin/minikube start --mount --memory 26624 --cpus 4 --extra-config=apiserver.GenericServerRunOptions.ServiceNodePortRange=80-32767
+ExecStart=/usr/local/bin/minikube start --mount --memory 26624 --cpus 4 --extra-config=apiserver.service-node-port-range=80-32767
 # This will blow away the VM config file, but not the VM hard disk under ~
 # Since we are mounting, it is probably a good idea to run this stop command
 # rather than letting libvirt stop the VM.

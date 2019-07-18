@@ -124,7 +124,7 @@
 
     - name: Start minikube
       # Keep these options in sync with the values in files/etc/systemd/system/minikube.service
-      command: minikube start --mount --memory 26624 --cpus 4 --extra-config=apiserver.GenericServerRunOptions.ServiceNodePortRange=80-32767
+      command: minikube start --mount --memory 26624 --cpus 4 --extra-config=apiserver.service-node-port-range=80-32767
       become: false
       register: startout
       when: kubestatus.rc != 0
