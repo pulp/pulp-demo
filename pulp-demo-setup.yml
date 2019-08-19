@@ -71,6 +71,7 @@
         owner: root
         group: root
         mode: 0755
+        force: yes
 
     - name: Install dashboard .desktop file
       copy:
@@ -101,6 +102,7 @@
         owner: root
         group: root
         mode: 0755
+        force: yes
 
     - name: Configure minikube to use kvm2 for user
       command: minikube config set vm-driver kvm2
