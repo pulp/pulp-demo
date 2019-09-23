@@ -3,7 +3,7 @@
 ########################
 # include the magic
 ########################
-test -x demo-magic.sh || curl -o demo-magic.sh https://raw.githubusercontent.com/paxtonhare/demo-magic/master/demo-magic.sh
+test -e demo-magic.sh || curl -o demo-magic.sh https://raw.githubusercontent.com/paxtonhare/demo-magic/master/demo-magic.sh
 . demo-magic.sh
 
 
