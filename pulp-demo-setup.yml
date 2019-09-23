@@ -49,8 +49,9 @@
 
     - name: Install Python Packages
       pip:
+        # Provides ansible-galaxy,
         # Needed to interact with ansible content plugin
-        name: mazer
+        name: git+https://github.com/ansible/ansible.git@devel#egg=ansible
       become: false
 
     - name: Generate kubectl bash completion file under /tmp
