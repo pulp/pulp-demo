@@ -14,8 +14,10 @@ test -e demo-magic.sh || curl -o demo-magic.sh https://raw.githubusercontent.com
 ########################
 if minikube status 2&>1 > /dev/null; then
   BASE_ADDR="$(minikube ip):24817"
-else
+elif systemctl is-active k3s.service; then
   BASE_ADDR="http://127.0.0.1:24817"
+else
+  BASE_ADDR=":"
 fi
 SERVICES=("pulp-content-app pulp-worker@1 pulp-worker@2 pulp-resource-manager pulp-api")
 
