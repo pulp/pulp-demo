@@ -158,6 +158,14 @@
         mode: 0600
       become: false
 
+    # for default user & pass for httpie
+    - name: Install pulp_ansible_demo.sh
+      copy:
+        src:   home/pulp/pulp_ansible_demo.sh
+        dest: /home/pulp/pulp-ansible_demo.sh
+        mode: 0755
+      become: false
+
     - name: Configure gnome-desktop
       copy:
         src:   "etc/dconf/db/local.d/{{ item }}"
