@@ -4,7 +4,7 @@
 # include the magic
 ########################
 test -e demo-magic.sh || curl -o demo-magic.sh https://raw.githubusercontent.com/paxtonhare/demo-magic/master/demo-magic.sh
-. demo-magic.sh
+. demo-magic.sh -d
 
 # uncomment this next line to run the script without waiting
 # . demo-magic.sh -d -n
