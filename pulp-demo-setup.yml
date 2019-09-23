@@ -46,6 +46,8 @@
         - jq
         # The pulp-operator depends on Ansible, including this
         - python3-ansible-runner
+        # demo-magic.sh needs this
+        - pv
 
     - name: Install Python Packages
       pip:
@@ -159,7 +161,15 @@
         mode: 0600
       become: false
 
-    # for default user & pass for httpie
+    # used by pulp_ansible_demo.sh, which would download it anyway.
+    - name: Download demo-magic.sh
+      get_url:
+        url: https://raw.githubusercontent.com/paxtonhare/demo-magic/master/demo-magic.sh
+        dest: /home/pulp/demo-magic.sh
+        mode: 0755
+        force: yes
+      become: false
+
     - name: Install pulp_ansible_demo.sh
       copy:
         src:   home/pulp/pulp_ansible_demo.sh
