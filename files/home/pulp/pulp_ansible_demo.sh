@@ -6,6 +6,8 @@
 test -e demo-magic.sh || curl -o demo-magic.sh https://raw.githubusercontent.com/paxtonhare/demo-magic/master/demo-magic.sh
 . demo-magic.sh
 
+# uncomment this next line to run the script without waiting
+# . demo-magic.sh -d -n
 
 ########################
 # constants
@@ -64,7 +66,7 @@ export REPO_HREF=$(http $BASE_ADDR/pulp/api/v3/repositories/ | \
 
 pe "http POST $BASE_ADDR/pulp/api/v3/remotes/ansible/collection/ \\
     name='bar' \\
-    url='https://galaxy.ansible.com/api/v2/collections'
+    url='https://galaxy.ansible.com/api/v2/collections/testing/k8s_demo_collection'
 "
 export REMOTE_HREF=$(http $BASE_ADDR/pulp/api/v3/remotes/ansible/collection/ | jq -r '.results[] | select(.name == "bar") | ._href')
 
@@ -98,12 +100,12 @@ pe "http $BASE_ADDR$DIST_PATH"
 
 # mazer config
 
-pe 'cat ~/.ansible/mazer.yml'
+pe 'cat ~/.ansible.cfg'
 
 
 # mazer install
 
-pe "mazer install testing.k8s_demo_collection"
+pe "ansible-galaxy collection install testing.k8s_demo_collection -p collections"
 
 
 # done
@@ -111,10 +113,10 @@ pe "mazer install testing.k8s_demo_collection"
 pe "echo 'done'"
 
 
-# cleanup
+# cleanup (edit depending on setup)
 
-rm -rf ~/.ansible/collections/ansible_collections/testing/k8s_demo_collection/
-cd pulp/pulp-operator/
+rm -rf collections
+cd ~/pulp/pulp-operator/ || cd ~/devel/pulp-operator
 ./down.sh && ./up.sh
 
 #sudo systemctl stop ${SERVICES}
