@@ -3,7 +3,19 @@
 ########################
 # include the magic
 ########################
+test -x demo-magic.sh || curl -o demo-magic.sh https://raw.githubusercontent.com/paxtonhare/demo-magic/master/demo-magic.sh
 . demo-magic.sh
+
+
+########################
+# constants
+########################
+if minikube status 2&>1 > /dev/null; then
+  BASE_ADDR="$(minikube ip):24817"
+else
+  BASE_ADDR="http://127.0.0.1:24817"
+fi
+SERVICES=("pulp-content-app pulp-worker@1 pulp-worker@2 pulp-resource-manager pulp-api")
 
 
 ########################
@@ -14,7 +26,7 @@ wait_until_task_finished() {
     local task_url=$1
     while true
     do
-        local response=$(http :24817$task_url)
+        local response=$(http $BASE_ADDR$task_url)
         local state=$(jq -r .state <<< ${response})
         jq . <<< "${response}"
         case ${state} in
@@ -38,9 +50,6 @@ wait_until_task_finished() {
 
 # hide the evidence
 clear
-
-BASE_ADDR=":24817"
-SERVICES=("pulp-content-app pulp-worker@1 pulp-worker@2 pulp-resource-manager pulp-api")
 
 
 # create repo
@@ -102,14 +111,16 @@ pe "mazer install testing.k8s_demo_collection"
 pe "echo 'done'"
 
 
-# cleanup (edit depending on setup)
+# cleanup
 
 rm -rf ~/.ansible/collections/ansible_collections/testing/k8s_demo_collection/
+cd pulp/pulp-operator/
+./down.sh && ./up.sh
 
-sudo systemctl stop ${SERVICES}
+#sudo systemctl stop ${SERVICES}
 
-django-admin reset_db --noinput
-django-admin migrate
-django-admin reset-admin-password --password password
+#django-admin reset_db --noinput
+#django-admin migrate
+#django-admin reset-admin-password --password password
 
-sudo systemctl start ${SERVICES}
+#sudo systemctl start ${SERVICES}
