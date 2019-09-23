@@ -116,15 +116,16 @@ pe "echo 'done'"
 
 
 # cleanup (edit depending on setup)
-
 rm -rf collections
-cd ~/pulp/pulp-operator/ || cd ~/devel/pulp-operator
-./down.sh && ./up.sh
+if [ "$BASE_ADDR" = ":" ]; then
+  sudo systemctl stop ${SERVICES}
 
-#sudo systemctl stop ${SERVICES}
+  django-admin reset_db --noinput
+  django-admin migrate
+  django-admin reset-admin-password --password password
 
-#django-admin reset_db --noinput
-#django-admin migrate
-#django-admin reset-admin-password --password password
-
-#sudo systemctl start ${SERVICES}
+  sudo systemctl start ${SERVICES}
+else
+  cd ~/pulp/pulp-operator/ || cd ~/devel/pulp-operator
+  ./down.sh && ./up.sh
+fi
