@@ -154,6 +154,8 @@
       copy:
         src:   home/pulp/.netrc
         dest: /home/pulp/.netrc
+        # ansible-galaxy requires this
+        mode: 0600
       become: false
 
     - name: Configure gnome-desktop
